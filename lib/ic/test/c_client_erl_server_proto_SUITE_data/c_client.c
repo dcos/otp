@@ -120,7 +120,7 @@ static char longtext[] =
 " other file is a C source code file (.c). In addition to these files a number of C"
 " source files will be generated for type encodings, they are named according to the "
 "following template: oe_code_<type>.c.";
-static char this_node[NODENAMESZ + 1];
+static char this_node[NODENAMESZ];
 static char *progname;
 
 /* Test function prototypes */
@@ -279,7 +279,7 @@ int main(int argc, char **argv)
     char *peer_node = NULL;
     char *peer_process_name = NULL;
     char *cookie = NULL;
-    char host[HOSTNAMESZ + 1];
+    char host[HOSTNAMESZ];
     TestFunc test_func = NULL;
     TestCase *test_case;
     char *test_case_name = NULL;

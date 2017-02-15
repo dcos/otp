@@ -8347,7 +8347,7 @@ static ErlDrvData inet_start(ErlDrvPort port, int size, int protocol)
 
 
 #ifndef MAXHOSTNAMELEN
-#define MAXHOSTNAMELEN 256
+#define MAXHOSTNAMELEN 255
 #endif
 
 /*
@@ -8525,13 +8525,14 @@ static ErlDrvSSizeT inet_ctl(inet_descriptor* desc, int cmd, char* buf,
     }
 	
     case INET_REQ_GETHOSTNAME: { /* get host name */
-	char tbuf[MAXHOSTNAMELEN];
+	char tbuf[MAXHOSTNAMELEN+1];
 
 	DEBUGF(("inet_ctl(%ld): GETHOSTNAME\r\n", (long)desc->port)); 
 	if (len != 0)
 	    return ctl_error(EINVAL, rbuf, rsize);
 
-	if (IS_SOCKET_ERROR(sock_hostname(tbuf, MAXHOSTNAMELEN)))
+        /* gethostname requires len to be max(hostname) + 1 */
+	if (IS_SOCKET_ERROR(sock_hostname(tbuf, MAXHOSTNAMELEN+1)))
 	    return ctl_error(sock_errno(), rbuf, rsize);
 	return ctl_reply(INET_REP_OK, tbuf, strlen(tbuf), rbuf, rsize);
     }

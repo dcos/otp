@@ -103,8 +103,8 @@ int main(int argc, char **argv)
     char *this_node_name = NULL;
     char *peer_node = NULL;
     char *cookie = NULL;
-    char host[HOSTNAMESZ + 1];
-    char this_node[NODENAMESZ + 1];
+    char host[HOSTNAMESZ];
+    char this_node[NODENAMESZ];
     erlang_msg msg;
     int status, loop; 
     
